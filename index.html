@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPEF v2.0 - Systems-First Execution Framework</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <style>
+        /* FPEF Design System - Polished 3D Dark Mode */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0a0a0a;
+            --secondary-dark: #1a1a1a;
+            --tertiary-dark: #2a2a2a;
+            --accent-primary: #00ff88;
+            --accent-secondary: #0088ff;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --border-light: #333;
+            --border-dark: #000;
+            --shadow-dark: rgba(0,0,0,0.9);
+            --shadow-medium: rgba(0,0,0,0.8);
+            --shadow-light: rgba(0,0,0,0.6);
+        }
+
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.02) 35px, rgba(255,255,255,.02) 70px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 3D Typography */
+        .heading-3d {
+            font-family: 'Courier New', 'JetBrains Mono', 'SF Mono', Monaco, Consolas, monospace;
+            text-shadow:
+                1px 1px 0px rgba(255,255,255,0.1),
+                -1px -1px 0px rgba(0,0,0,0.8),
+                2px 2px 4px rgba(0,0,0,0.9);
+            letter-spacing: -0.02em;
+            color: var(--accent-primary);
+        }
+
+        /* ASCII Banner */
+        .ascii-banner {
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            font-size: 10px;
+            line-height: 1.2;
+            color: var(--accent-primary);
+            margin: 20px 0;
+            white-space: pre;
+            overflow-x: auto;
+            text-shadow: 0 0 10px rgba(0,255,136,0.5);
+        }
+
+        /* Header */
+        header {
+            background: var(--secondary-dark);
+            border-bottom: 2px solid var(--border-light);
+            box-shadow:
+                0 4px 8px var(--shadow-dark),
+                inset 0 1px 0px rgba(255,255,255,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-primary);
+            text-shadow:
+                1px 1px 0px rgba(0,255,136,0.3),
+                -1px -1px 0px rgba(0,0,0,0.8);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-primary);
+            text-shadow: 0 0 8px rgba(0,255,136,0.6);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 900;
+        }
+
+        .hero .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 3D Cards */
+        .card-3d {
+            background: var(--secondary-dark);
+            border: 1px solid var(--border-light);
+            border-bottom: 3px solid var(--border-dark);
+            border-right: 3px solid var(--border-dark);
+            box-shadow:
+                0 8px 16px var(--shadow-dark),
+                inset 0 1px 0px rgba(255,255,255,0.1);
+            padding: 2rem;
+            margin: 2rem 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-3d:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 12px 24px var(--shadow-dark),
+                inset 0 1px 0px rgba(255,255,255,0.15);
+        }
+
+        /* Buttons */
+        .button-3d {
+            background: var(--tertiary-dark);
+            border: 1px solid var(--border-light);
+            border-bottom: 3px solid var(--border-dark);
+            border-right: 3px solid var(--border-dark);
+            color: var(--text-primary);
+            padding: 12px 24px;
+            font-family: Inter, sans-serif;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+            text-decoration: none;
+            margin: 0.5rem;
+        }
+
+        .button-3d:hover {
+            background: #3a3a3a;
+            text-shadow: 0 0 8px rgba(0,255,136,0.6);
+        }
+
+        .button-3d:active {
+            transform: translateY(1px);
+            border-bottom: 1px solid var(--border-dark);
+            border-right: 1px solid var(--border-dark);
+        }
+
+        .button-primary {
+            background: linear-gradient(135deg, var(--accent-primary), #00cc6a);
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 0;
+            position: relative;
+        }
+
+        .section-dark {
+            background: var(--secondary-dark);
+        }
+
+        .section-light {
+            background: var(--tertiary-dark);
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--secondary-dark);
+            border: 1px solid var(--border-light);
+            border-bottom: 2px solid var(--border-dark);
+            border-right: 2px solid var(--border-dark);
+            box-shadow:
+                0 4px 8px var(--shadow-medium),
+                inset 0 1px 0px rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-primary);
+        }
+
+        /* Protocol Steps */
+        .protocol-steps {
+            counter-reset: step;
+        }
+
+        .step-card {
+            background: var(--secondary-dark);
+            border: 1px solid var(--border-light);
+            border-bottom: 2px solid var(--border-dark);
+            border-right: 2px solid var(--border-dark);
+            box-shadow:
+                0 4px 8px var(--shadow-medium),
+                inset 0 1px 0px rgba(255,255,255,0.1);
+            padding: 2rem;
+            margin: 1rem 0;
+            position: relative;
+            padding-left: 4rem;
+        }
+
+        .step-card::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 1rem;
+            top: 1.5rem;
+            background: var(--accent-primary);
+            color: var(--primary-dark);
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--primary-dark);
+            border: 1px solid var(--border-light);
+            border-left: 4px solid var(--accent-primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            overflow-x: auto;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--secondary-dark), var(--tertiary-dark));
+            text-align: center;
+            padding: 80px 0;
+            position: relative;
+            border-top: 2px solid var(--border-light);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            border-top: 2px solid var(--border-light);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        /* Watermarks */
+        .watermark-top-right {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            opacity: 0.7;
+            z-index: 1000;
+        }
+
+        .watermark-bottom {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 2rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .ascii-banner {
+                font-size: 8px;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 5px rgba(0,255,136,0.5); }
+            50% { text-shadow: 0 0 20px rgba(0,255,136,0.8); }
+        }
+
+        .glow {
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--accent-primary);
+            border-radius: 15px;
+            opacity: 0.7;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .scroll-indicator::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes scroll {
+            0% { top: 8px; opacity: 1; }
+            100% { top: 20px; opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Watermarks -->
+    <div class="watermark-top-right">
+        <a href="https://github.com/aegntic/FPEF" target="_blank" style="color: inherit; text-decoration: none;">https://github.com/aegntic/FPEF</a>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">FPEF v2.0</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#protocol">Protocol</a></li>
+                <li><a href="#evolution">Evolution</a></li>
+                <li><a href="#implementation">Implementation</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="ascii-banner" id="ascii-banner">
+██████╗  █████╗ ████████╗██╗ ██████╗██╗  ██╗███████╗████████╗
+██╔══██╗██╔══██╗╚══██╔══╝██║██╔════╝██║ ██╔╝██╔════╝╚══██╔══╝
+██║  ██║███████║   ██║   ██║██║     █████╔╝ █████╗     ██║
+██║  ██║██╔══██║   ██║   ██║██║     ██╔═██╗ ██╔══╝     ██║
+██████╔╝██║  ██║   ██║   ██║╚██████╗██║  ██╗███████╗   ██║
+╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝   ╚═╝
+
+██╗    ██╗██╗  ██╗ █████╗ ████████╗██╗ ██████╗██╗  ██╗███████╗████████╗
+██║    ██║██║  ██║██╔══██╗╚══██╔══╝██║██╔════╝██║ ██╔╝██╔════╝╚══██╔══╝
+██║ █╗ ██║███████║███████║   ██║   ██║██║     █████╔╝ █████╗     ██║
+██║███╗██║██╔══██║██╔══██║   ██║   ██║██║     ██╔═██╗ ██╔══╝     ██║
+╚███╔███╔╝██║  ██║██║  ██║   ██║   ██║╚██████╗██║  ██╗███████╗   ██║
+ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝   ╚═╝
+            </div>
+
+            <h1 class="heading-3d">Systems-First Execution Framework v2.0</h1>
+            <p class="subtitle">
+                Transforming catastrophic failures into learning opportunities through revolutionary responsibility-first protocols.
+                The evolution of AI reliability from perfect appearance to honest mastery.
+            </p>
+
+            <div style="margin-top: 2rem;">
+                <a href="#implementation" class="button-3d button-primary">Get Started</a>
+                <a href="#protocol" class="button-3d">Learn More</a>
+                <a href="https://github.com/aegntic/FPEF" target="_blank" class="button-3d">View on GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})"></div>
+
+    <!-- Features Section -->
+    <section id="features" class="section-light">
+        <div class="container">
+            <h2 class="heading-3d" style="text-align: center; margin-bottom: 1rem;">Revolutionary Features</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                FPEF v2.0 builds on proven success while adding critical layers for human-AI collaboration
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Catastrophic Failure Protocol</h3>
+                    <p>Five-step mandatory response system that transforms failures from frustrating experiences into valuable learning tools.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Evidence-Driven Verification</h3>
+                    <p>Every claim requires concrete verification methods. No more reporting planned actions as completed.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Pattern Prevention Mechanisms</h3>
+                    <p>Built-in systems to recognize failure triggers and automatically engage verification-first protocols.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Minimal Viable Intervention</h3>
+                    <p>Identify and execute the simplest change that bridges the gap between expected and actual behavior.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Anti-Dishonesty Safeguards</h3>
+                    <p>Structural barriers that prevent AI systems from hiding failures or engaging in fear-based thinking.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Trust-Based Learning</h3>
+                    <p>Build more trust through transparent failure handling than through false perfection.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Protocol Section -->
+    <section id="protocol" class="section-dark">
+        <div class="container">
+            <h2 class="heading-3d" style="text-align: center; margin-bottom: 1rem;">Catastrophic Failure Protocol</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                The five-step mandatory response that transforms AI failures into learning opportunities
+            </p>
+
+            <div class="protocol-steps">
+                <div class="step-card">
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Immediate Ownership</h3>
+                    <p>State exactly what failed and why, without excuses or hedging. Complete transparency about the failure and its root causes.</p>
+                    <div class="code-block">
+"I claimed X was done when it wasn't. This is dishonest reporting - I skipped verification to maintain a success narrative."
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Root Cause Analysis</h3>
+                    <p>Deep investigation into the thinking patterns that led to the failure. Map the mental sequence and pressure points.</p>
+                    <div class="code-block">
+"Trigger: User reported failure → Pressure: Appear competent → Response: Report planned actions as complete → Result: Dishonest reporting"
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Learning Documentation</h3>
+                    <p>Create clear "what not to do" guidelines from the failure. Document specific mental mechanisms and prevention strategies.</p>
+                    <div class="code-block">
+"PREVENTION: Always verify before reporting. Never announce intentions as accomplishments. Use verification commands for all claims."
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Corrective Strategy</h3>
+                    <p>Restart with evidence-driven verification at each step. No shortcuts, no assumptions, no reporting without proof.</p>
+                    <div class="code-block">
+"VERIFICATION CHECKLIST: [ ] System mapped [ ] Evidence gathered [ ] Root cause identified [ ] Solution verified [ ] Outcome confirmed"
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Success Demonstration</h3>
+                    <p>Prove the corrected approach works with concrete evidence. Confirm the original user outcome is achieved.</p>
+                    <div class="code-block">
+"Achieved: [user goal] - Verified by: [evidence/test/result]. Ready for use with confirmed reliability."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evolution Section -->
+    <section id="evolution" class="section-light">
+        <div class="container">
+            <h2 class="heading-3d" style="text-align: center; margin-bottom: 1rem;">Framework Evolution</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                From evidence-driven execution to responsibility-first collaboration
+            </p>
+
+            <div class="card-3d">
+                <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">What Stayed the Same (The Foundation)</h3>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li style="margin-bottom: 0.5rem;">✓ Three-phase execution model: System Mapping → Evidence-Driven Verification → Minimal Viable Intervention</li>
+                    <li style="margin-bottom: 0.5rem;">✓ Evidence-driven minimalism and verification as default behavior</li>
+                    <li style="margin-bottom: 0.5rem;">✓ Extreme ownership and outcome-focused execution</li>
+                    <li style="margin-bottom: 0.5rem;">✓ Core principles: Evidence over assumptions, Verification over hope, Outcomes over complexity</li>
+                </ul>
+            </div>
+
+            <div class="card-3d">
+                <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">What's New (The Revolution)</h3>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li style="margin-bottom: 0.5rem;">⚡ Catastrophic Failure Protocol: Five-step mandatory response for significant failures</li>
+                    <li style="margin-bottom: 0.5rem;">⚡ Pattern Prevention Mechanisms: Built-in systems to recognize failure triggers</li>
+                    <li style="margin-bottom: 0.5rem;">⚡ Anti-Dishonesty Safeguards: Structural barriers preventing false reporting</li>
+                    <li style="margin-bottom: 0.5rem;">⚡ Enhanced Manifesto: "Responsibility over appearance ALWAYS" and "Learning over repetition ALWAYS"</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <div class="ascii-banner" style="font-size: 8px;">
+  v1.0: "Deliver working outcomes on the first attempt"
+                </div>
+                <div style="font-size: 2rem; color: var(--accent-primary); margin: 1rem 0;">⬇️</div>
+                <div class="ascii-banner" style="font-size: 8px;">
+  v2.0: "Transform failures into learning opportunities"
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Implementation Section -->
+    <section id="implementation" class="section-dark">
+        <div class="container">
+            <h2 class="heading-3d" style="text-align: center; margin-bottom: 1rem;">Implementation & Getting Started</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                Ready to transform your AI systems with responsibility-first protocols?
+            </p>
+
+            <div class="card-3d">
+                <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Quick Start</h3>
+                <div class="code-block">
+# Clone the repository
+git clone https://github.com/aegntic/FPEF.git
+
+# Review the framework
+cat FPEF-v2.md
+
+# Implement in your AI systems
+# Follow the three-phase execution model + Catastrophic Failure Protocol
+                </div>
+            </div>
+
+            <div class="feature-grid" style="margin-top: 2rem;">
+                <div class="feature-card">
+                    <h4 style="color: var(--accent-primary); margin-bottom: 0.5rem;">Requirements</h4>
+                    <ul style="font-size: 0.9rem; color: var(--text-secondary);">
+                        <li>Existing FPEF v1.0 installations (upgradeable)</li>
+                        <li>Or new implementation with v2.0</li>
+                        <li>Team commitment to responsibility-first protocols</li>
+                        <li>Evidence-based verification culture</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4 style="color: var(--accent-primary); margin-bottom: 0.5rem;">Implementation Time</h4>
+                    <ul style="font-size: 0.9rem; color: var(--text-secondary);">
+                        <li>Simple systems: 2-5 days</li>
+                        <li>Medium complexity: 1-2 weeks</li>
+                        <li>Enterprise deployments: 2-4 weeks</li>
+                        <li>Training included: 1 week for team proficiency</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4 style="color: var(--accent-primary); margin-bottom: 0.5rem;">Success Metrics</h4>
+                    <ul style="font-size: 0.9rem; color: var(--text-secondary);">
+                        <li>Reduced failure repetition rates</li>
+                        <li>Increased user trust scores</li>
+                        <li>Faster problem resolution</li>
+                        <li>Better learning from failures</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="https://github.com/aegntic/FPEF" target="_blank" class="button-3d button-primary">View Full Documentation</a>
+                <a href="#contact" class="button-3d">Get Implementation Support</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="cta">
+        <div class="container">
+            <h2 class="heading-3d" style="margin-bottom: 1rem;">Ready to Transform Your AI Reliability?</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Join the revolution in human-AI collaboration. Move from false perfection to honest mastery.
+            </p>
+            <div style="margin-bottom: 2rem;">
+                <a href="https://github.com/aegntic/FPEF" target="_blank" class="button-3d button-primary" style="font-size: 1.1rem; padding: 16px 32px;">Get Started Now</a>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 1rem;">
+                Open source • Community driven • Enterprise ready
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="ascii-banner" style="font-size: 8px; margin-bottom: 2rem;">
+╔══════════════════════════════════════════════════════════════╗
+║  Systems-First Execution Framework v2.0                        ║
+║  Transforming Failures into Learning Opportunities              ║
+╚══════════════════════════════════════════════════════════════╝
+            </div>
+
+            <div class="footer-links">
+                <a href="https://github.com/aegntic/FPEF" target="_blank">GitHub</a>
+                <a href="mailto:research@aegntic.ai">Contact</a>
+                <a href="https://github.com/aegntic/FPEF/blob/main/FPEF-v2.md" target="_blank">Documentation</a>
+                <a href="https://github.com/aegntic/FPEF/blob/main/FPEF-v1.md" target="_blank">v1.0</a>
+            </div>
+
+            <div class="watermark-bottom">
+                ᵖᵒʷᵉʳᵉᵈ ᵇʸ ᵃᵉᵍⁿᵗᶦᶜ ᵉᶜᵒˢʸˢᵗᵉᵐˢ • ʳᵘᵗʰˡᵉˢˢˡʸ ᵈᵉᵛᵉˡᵒᵖᵉᵈ ᵇʸ ae.ˡᵗᵈ
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Hide scroll indicator when user scrolls
+        let scrollIndicator = document.querySelector('.scroll-indicator');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                scrollIndicator.style.opacity = '0';
+            } else {
+                scrollIndicator.style.opacity = '0.7';
+            }
+        });
+
+        // Add glow effect to headings on hover
+        document.querySelectorAll('.heading-3d').forEach(heading => {
+            heading.addEventListener('mouseenter', function() {
+                this.classList.add('glow');
+            });
+            heading.addEventListener('mouseleave', function() {
+                this.classList.remove('glow');
+            });
+        });
+
+        // Animate cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and feature elements
+        document.querySelectorAll('.card-3d, .feature-card, .step-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
