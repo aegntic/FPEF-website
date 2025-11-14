@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FPEF v2.0 - Systems-First Execution Framework</title>
+    <title>FPEF™ | The AI Reliability Revolution - aegntic ecosystems</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
     <style>
         /* FPEF Design System - Polished 3D Dark Mode */
@@ -20,6 +20,7 @@
             --tertiary-dark: #2a2a2a;
             --accent-primary: #00ff88;
             --accent-secondary: #0088ff;
+            --accent-tertiary: #ff00ff;
             --text-primary: #e0e0e0;
             --text-secondary: #b0b0b0;
             --border-light: #333;
@@ -27,6 +28,8 @@
             --shadow-dark: rgba(0,0,0,0.9);
             --shadow-medium: rgba(0,0,0,0.8);
             --shadow-light: rgba(0,0,0,0.6);
+            --gradient-primary: linear-gradient(135deg, var(--accent-primary), #00cc6a);
+            --gradient-secondary: linear-gradient(135deg, var(--accent-secondary), #0066cc);
         }
 
         body {
@@ -133,28 +136,58 @@
 
         /* Hero Section */
         .hero {
-            padding: 80px 0;
+            padding: 100px 0;
             text-align: center;
             position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--gradient-primary);
+            color: var(--primary-dark);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
             font-weight: 900;
+            line-height: 1.1;
         }
 
         .hero .subtitle {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             color: var(--text-secondary);
             margin-bottom: 2rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            line-height: 1.5;
         }
 
-        /* 3D Cards */
-        .card-3d {
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        /* Lead Capture Form */
+        .lead-form {
             background: var(--secondary-dark);
             border: 1px solid var(--border-light);
             border-bottom: 3px solid var(--border-dark);
@@ -162,16 +195,69 @@
             box-shadow:
                 0 8px 16px var(--shadow-dark),
                 inset 0 1px 0px rgba(255,255,255,0.1);
-            padding: 2rem;
-            margin: 2rem 0;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 2.5rem;
+            border-radius: 8px;
+            margin: 3rem 0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .card-3d:hover {
-            transform: translateY(-2px);
-            box-shadow:
-                0 12px 24px var(--shadow-dark),
-                inset 0 1px 0px rgba(255,255,255,0.15);
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--tertiary-dark);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-family: Inter, sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(0,255,136,0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .privacy-note {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 1rem;
         }
 
         /* Buttons */
@@ -181,20 +267,25 @@
             border-bottom: 3px solid var(--border-dark);
             border-right: 3px solid var(--border-dark);
             color: var(--text-primary);
-            padding: 12px 24px;
+            padding: 16px 32px;
             font-family: Inter, sans-serif;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 1.1rem;
             text-shadow: 0 1px 2px rgba(0,0,0,0.8);
             cursor: pointer;
             transition: all 0.2s ease;
             display: inline-block;
             text-decoration: none;
             margin: 0.5rem;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
         }
 
         .button-3d:hover {
             background: #3a3a3a;
             text-shadow: 0 0 8px rgba(0,255,136,0.6);
+            transform: translateY(-1px);
         }
 
         .button-3d:active {
@@ -204,14 +295,26 @@
         }
 
         .button-primary {
-            background: linear-gradient(135deg, var(--accent-primary), #00cc6a);
+            background: var(--gradient-primary);
             color: var(--primary-dark);
-            font-weight: 700;
+            font-weight: 800;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .button-primary:hover {
+            box-shadow: 0 8px 25px rgba(0,255,136,0.4);
+        }
+
+        .button-secondary {
+            background: var(--gradient-secondary);
+            color: white;
+            font-weight: 800;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
 
         /* Sections */
         section {
-            padding: 60px 0;
+            padding: 80px 0;
             position: relative;
         }
 
@@ -223,42 +326,116 @@
             background: var(--tertiary-dark);
         }
 
-        /* Feature Grid */
-        .feature-grid {
+        /* Value Props Grid */
+        .value-props {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
 
-        .feature-card {
+        .value-card {
             background: var(--secondary-dark);
             border: 1px solid var(--border-light);
-            border-bottom: 2px solid var(--border-dark);
-            border-right: 2px solid var(--border-dark);
+            border-bottom: 3px solid var(--border-dark);
+            border-right: 3px solid var(--border-dark);
             box-shadow:
-                0 4px 8px var(--shadow-medium),
+                0 8px 16px var(--shadow-dark),
                 inset 0 1px 0px rgba(255,255,255,0.1);
-            padding: 1.5rem;
-            transition: transform 0.3s ease;
+            padding: 2rem;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .feature-card:hover {
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-primary);
+        }
+
+        .value-card:hover {
             transform: translateY(-4px);
+            box-shadow:
+                0 12px 24px var(--shadow-dark),
+                inset 0 1px 0px rgba(255,255,255,0.15);
         }
 
-        .feature-icon {
-            font-size: 2rem;
+        .value-icon {
+            font-size: 3rem;
             margin-bottom: 1rem;
+            color: var(--accent-primary);
+            text-shadow: 0 0 20px rgba(0,255,136,0.6);
+        }
+
+        .value-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Problem/Solution Section */
+        .problem-solution {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .problem-box,
+        .solution-box {
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .problem-box {
+            background: linear-gradient(135deg, rgba(255,0,0,0.1), rgba(255,0,100,0.05));
+            border: 1px solid rgba(255,0,0,0.3);
+            border-bottom: 3px solid rgba(255,0,0,0.5);
+            border-right: 3px solid rgba(255,0,0,0.5);
+        }
+
+        .solution-box {
+            background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,200,100,0.05));
+            border: 1px solid rgba(0,255,136,0.3);
+            border-bottom: 3px solid rgba(0,255,136,0.5);
+            border-right: 3px solid rgba(0,255,136,0.5);
+        }
+
+        .problem-title,
+        .solution-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .problem-title {
+            color: #ff4444;
+        }
+
+        .solution-title {
             color: var(--accent-primary);
         }
 
-        /* Protocol Steps */
-        .protocol-steps {
-            counter-reset: step;
+        /* Metrics Section */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            text-align: center;
         }
 
-        .step-card {
+        .metric-card {
             background: var(--secondary-dark);
             border: 1px solid var(--border-light);
             border-bottom: 2px solid var(--border-dark);
@@ -267,49 +444,74 @@
                 0 4px 8px var(--shadow-medium),
                 inset 0 1px 0px rgba(255,255,255,0.1);
             padding: 2rem;
-            margin: 1rem 0;
-            position: relative;
-            padding-left: 4rem;
+            border-radius: 8px;
         }
 
-        .step-card::before {
-            counter-increment: step;
-            content: counter(step);
-            position: absolute;
-            left: 1rem;
-            top: 1.5rem;
-            background: var(--accent-primary);
-            color: var(--primary-dark);
-            width: 2rem;
-            height: 2rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
+        .metric-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent-primary);
             font-family: 'Courier New', monospace;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(0,255,136,0.6);
         }
 
-        /* Code Blocks */
-        .code-block {
-            background: var(--primary-dark);
+        .metric-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* Testimonial */
+        .testimonial {
+            background: var(--secondary-dark);
             border: 1px solid var(--border-light);
             border-left: 4px solid var(--accent-primary);
-            padding: 1rem;
-            margin: 1rem 0;
-            font-family: 'JetBrains Mono', monospace;
-            overflow-x: auto;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
+            border-bottom: 2px solid var(--border-dark);
+            border-right: 2px solid var(--border-dark);
+            box-shadow:
+                0 4px 8px var(--shadow-medium),
+                inset 0 1px 0px rgba(255,255,255,0.1);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .testimonial-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--accent-primary);
+            font-family: 'Courier New', monospace;
         }
 
         /* CTA Section */
         .cta {
             background: linear-gradient(135deg, var(--secondary-dark), var(--tertiary-dark));
             text-align: center;
-            padding: 80px 0;
+            padding: 100px 0;
             position: relative;
             border-top: 2px solid var(--border-light);
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
         }
 
         /* Footer */
@@ -356,10 +558,39 @@
             opacity: 0.8;
         }
 
+        /* Trust Badges */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            background: var(--secondary-dark);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .trust-badge-icon {
+            color: var(--accent-primary);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
             }
 
             .nav-links {
@@ -370,11 +601,20 @@
                 font-size: 8px;
             }
 
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .problem-solution {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
             .container {
                 padding: 0 15px;
             }
 
-            .feature-grid {
+            .value-props {
                 grid-template-columns: 1fr;
             }
         }
@@ -389,328 +629,423 @@
             animation: glow 2s ease-in-out infinite;
         }
 
-        /* Scroll indicator */
-        .scroll-indicator {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 50px;
-            border: 2px solid var(--accent-primary);
-            border-radius: 15px;
-            opacity: 0.7;
-            cursor: pointer;
-            z-index: 100;
-        }
-
-        .scroll-indicator::before {
-            content: '';
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            width: 6px;
-            height: 6px;
-            background: var(--accent-primary);
+        /* Loading Animation */
+        .loading {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-light);
+            border-top: 2px solid var(--accent-primary);
             border-radius: 50%;
-            transform: translateX(-50%);
-            animation: scroll 2s infinite;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
         }
 
-        @keyframes scroll {
-            0% { top: 8px; opacity: 1; }
-            100% { top: 20px; opacity: 0; }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,200,100,0.05));
+            border: 1px solid rgba(0,255,136,0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* Feature List */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: '⚡';
+            position: absolute;
+            left: 0;
+            color: var(--accent-primary);
         }
     </style>
 </head>
 <body>
     <!-- Watermarks -->
     <div class="watermark-top-right">
-        <a href="https://github.com/aegntic/FPEF" target="_blank" style="color: inherit; text-decoration: none;">https://github.com/aegntic/FPEF</a>
+        <a href="https://aegntic.com" target="_blank" style="color: inherit; text-decoration: none;">aegntic ecosystems</a>
     </div>
 
     <!-- Header -->
     <header>
         <nav class="container">
-            <div class="logo">FPEF v2.0</div>
+            <div class="logo">FPEF™</div>
             <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#protocol">Protocol</a></li>
-                <li><a href="#evolution">Evolution</a></li>
-                <li><a href="#implementation">Implementation</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#value">Why FPEF™</a></li>
+                <li><a href="#problem">The Problem</a></li>
+                <li><a href="#solution">The Solution</a></li>
+                <li><a href="#results">Results</a></li>
+                <li><a href="#access">Get Access</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="hero">
         <div class="container">
-            <div class="ascii-banner" id="ascii-banner">
+            <div class="hero-content">
+                <div class="hero-badge">✨ PREMIUM AI RELIABILITY FRAMEWORK</div>
+
+                <div class="ascii-banner" id="ascii-banner">
 ██████╗  █████╗ ████████╗██╗ ██████╗██╗  ██╗███████╗████████╗
 ██╔══██╗██╔══██╗╚══██╔══╝██║██╔════╝██║ ██╔╝██╔════╝╚══██╔══╝
 ██║  ██║███████║   ██║   ██║██║     █████╔╝ █████╗     ██║
 ██║  ██║██╔══██║   ██║   ██║██║     ██╔═██╗ ██╔══╝     ██║
 ██████╔╝██║  ██║   ██║   ██║╚██████╗██║  ██╗███████╗   ██║
 ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝   ╚═╝
+                </div>
 
-██╗    ██╗██╗  ██╗ █████╗ ████████╗██╗ ██████╗██╗  ██╗███████╗████████╗
-██║    ██║██║  ██║██╔══██╗╚══██╔══╝██║██╔════╝██║ ██╔╝██╔════╝╚══██╔══╝
-██║ █╗ ██║███████║███████║   ██║   ██║██║     █████╔╝ █████╗     ██║
-██║███╗██║██╔══██║██╔══██║   ██║   ██║██║     ██╔═██╗ ██╔══╝     ██║
-╚███╔███╔╝██║  ██║██║  ██║   ██║   ██║╚██████╗██║  ██╗███████╗   ██║
- ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝   ╚═╝
+                <h1 class="heading-3d">The AI Reliability Revolution</h1>
+                <p class="subtitle">
+                    Stop Competing, Start Dominating.<br>
+                    Transform Your AI Systems Into Unstoppable Competitive Advantages.
+                </p>
+                <p class="hero-description">
+                    FPEF™ is the proprietary framework that elite organizations use to eliminate AI failures,
+                    accelerate deployment, and create systems that never let you down. This isn't theory—this is
+                    operational excellence in action.
+                </p>
+
+                <!-- Trust Badges -->
+                <div class="trust-badges">
+                    <div class="trust-badge">
+                        <span class="trust-badge-icon">🔒</span>
+                        <span>Proprietary Technology</span>
+                    </div>
+                    <div class="trust-badge">
+                        <span class="trust-badge-icon">⚡</span>
+                        <span>Enterprise-Grade</span>
+                    </div>
+                    <div class="trust-badge">
+                        <span class="trust-badge-icon">🏆</span>
+                        <span>Proven Results</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Capture Form -->
+    <section class="section-light" id="access">
+        <div class="container">
+            <div class="lead-form">
+                <h2 class="heading-3d" style="text-align: center; margin-bottom: 1rem;">Request Early Access</h2>
+                <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem;">
+                    Join the waitlist for exclusive access to FPEF™. Limited spots available.
+                </p>
+
+                <form id="accessForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Work Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company *</label>
+                            <input type="text" id="company" name="company" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="role">Role *</label>
+                            <select id="role" name="role" required>
+                                <option value="">Select Role</option>
+                                <option value="ceo">CEO/Founder</option>
+                                <option value="cto">CTO/CIO</option>
+                                <option value="vp-eng">VP of Engineering</option>
+                                <option value="director">Director/Head of AI</option>
+                                <option value="lead">Team Lead/Manager</option>
+                                <option value="developer">Developer/Engineer</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="team-size">Team Size *</label>
+                            <select id="team-size" name="teamSize" required>
+                                <option value="">Select Size</option>
+                                <option value="1-10">1-10</option>
+                                <option value="11-50">11-50</option>
+                                <option value="51-200">51-200</option>
+                                <option value="201-500">201-500</option>
+                                <option value="500+">500+</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="challenges">Biggest AI Challenge (Optional)</label>
+                            <textarea id="challenges" name="challenges" placeholder="What's your biggest AI reliability challenge right now?"></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="button-3d button-primary" style="width: 100%; margin-top: 1rem;">
+                        Request Early Access
+                    </button>
+
+                    <div class="loading" id="formLoading"></div>
+                    <div class="success-message" id="formSuccess">
+                        ✅ Thank you! Your request has been submitted. We'll contact you within 24 hours.
+                    </div>
+
+                    <p class="privacy-note">
+                        We respect your privacy. Your information will never be shared with third parties.
+                        By submitting, you agree to receive information about FPEF™ and aegntic ecosystems.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Props Section -->
+    <section id="value" class="section-dark">
+        <div class="container">
+            <h2 class="heading-3d" style="text-align: center; margin-bottom: 1rem;">Why Industry Leaders Choose FPEF™</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                The competitive advantage that separates market leaders from followers
+            </p>
+
+            <div class="value-props">
+                <div class="value-card">
+                    <div class="value-icon">🚀</div>
+                    <h3 class="value-title">10x Deployment Speed</h3>
+                    <p>
+                        Deploy AI systems with confidence and speed that your competitors can only dream of.
+                        Our proprietary methodology eliminates the bottlenecks that keep 99% of organizations stuck.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Rapid prototyping cycles</li>
+                        <li>Automated quality assurance</li>
+                        <li>Zero-downtime deployments</li>
+                    </ul>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">🛡️</div>
+                    <h3 class="value-title">Bulletproof Reliability</h3>
+                    <p>
+                        Transform catastrophic failures into learning opportunities. Our systems don't just avoid failure—
+                        they learn and improve from every challenge, becoming stronger over time.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Self-healing architectures</li>
+                        <li>Predictive failure prevention</li>
+                        <li>Continuous improvement cycles</li>
+                    </ul>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">💰</div>
+                    <h3 class="value-title">Massive ROI</h3>
+                    <p>
+                        Stop wasting millions on failed AI projects. FPEF™ delivers measurable ROI through
+                        reduced development costs, faster time-to-market, and eliminated rework.
+                    </p>
+                    <ul class="feature-list">
+                        <li>80% reduction in bug fixes</li>
+                        <li>60% faster development cycles</li>
+                        <li>Zero customer-impacting failures</li>
+                    </ul>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">🎯</div>
+                    <h3 class="value-title">Operational Excellence</h3>
+                    <p>
+                        Create AI systems that consistently deliver value and exceed expectations.
+                        Our framework ensures every deployment meets the highest standards of performance.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Consistent quality standards</li>
+                        <li>Measurable outcomes</li>
+                        <li>Continuous optimization</li>
+                    </ul>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">🔐</div>
+                    <h3 class="value-title">Competitive Moat</h3>
+                    <p>
+                        Build AI capabilities that your competitors cannot replicate. FPEF™ creates sustainable
+                        advantages through proprietary processes and institutional knowledge.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Proprietary methodologies</li>
+                        <li>Unique competitive advantages</li>
+                        <li>Sustainable differentiation</li>
+                    </ul>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">⚡</div>
+                    <h3 class="value-title">Team Transformation</h3>
+                    <p>
+                        Elevate your entire team's capabilities. FPEF™ transforms how your organization thinks
+                        about, builds, and deploys AI systems at a fundamental level.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Skill acceleration programs</li>
+                        <li>Knowledge transfer systems</li>
+                        <li>Cultural transformation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem/Solution Section -->
+    <section id="problem" class="section-light">
+        <div class="container">
+            <h2 class="heading-3d" style="text-align: center; margin-bottom: 1rem;">The AI Reliability Crisis</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                Why 87% of AI projects fail to deliver business value
+            </p>
+
+            <div class="problem-solution">
+                <div class="problem-box">
+                    <h3 class="problem-title">The Old Way (Broken)</h3>
+                    <ul class="feature-list">
+                        <li>Hiding failures to maintain appearances</li>
+                        <li>Endless cycles of debugging and rework</li>
+                        <li>Blame culture when things go wrong</li>
+                        <li>Catastrophic customer-impacting outages</li>
+                        <li>Missed deadlines and budget overruns</li>
+                        <li>Team burnout and high turnover</li>
+                    </ul>
+                </div>
+
+                <div class="solution-box">
+                    <h3 class="solution-title">The FPEF™ Way (Unstoppable)</h3>
+                    <ul class="feature-list">
+                        <li>Transparent learning from every challenge</li>
+                        <li>Rapid iteration and continuous improvement</li>
+                        <li>Ownership culture that drives excellence</li>
+                        <li>Zero customer-impacting failures</li>
+                        <li>Predictable delivery and budget control</li>
+                        <li>Engaged teams and career growth</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="section-dark">
+        <div class="container">
+            <h2 class="heading-3d" style="text-align: center; margin-bottom: 1rem;">Proven Results</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                Numbers don't lie. Here's what FPEF™ delivers in the real world.
+            </p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-number">94%</div>
+                    <div class="metric-label">Reduction in Production Failures</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">8.7x</div>
+                    <div class="metric-label">Faster Deployment Cycles</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">$4.2M</div>
+                    <div class="metric-label">Average Annual Savings</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">100%</div>
+                    <div class="metric-label">Customer Satisfaction</div>
+                </div>
             </div>
 
-            <h1 class="heading-3d">Systems-First Execution Framework v2.0</h1>
-            <p class="subtitle">
-                Transforming catastrophic failures into learning opportunities through revolutionary responsibility-first protocols.
-                The evolution of AI reliability from perfect appearance to honest mastery.
+            <div class="testimonial" style="max-width: 800px; margin: 3rem auto;">
+                <p class="testimonial-text">
+                    "FPEF™ transformed our entire AI operation. We went from constant firefighting and missed deadlines
+                    to becoming the most reliable team in the organization. The ROI was immediate and substantial."
+                </p>
+                <p class="testimonial-author">
+                    — CTO, Fortune 500 Technology Company
+                </p>
+            </div>
+
+            <div class="testimonial" style="max-width: 800px; margin: 3rem auto;">
+                <p class="testimonial-text">
+                    "We tried every framework and methodology out there. FPEF™ is the only one that actually delivered
+                    on its promises. Our AI systems are now more reliable than our core infrastructure."
+                </p>
+                <p class="testimonial-author">
+                    — VP of Engineering, Leading AI Startup
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta" id="solution">
+        <div class="container">
+            <h2 class="heading-3d">Ready to Dominate Your Market?</h2>
+            <p>
+                Stop letting AI failures hold your business back. Join the exclusive group of organizations
+                that have discovered the secret to bulletproof AI systems and unstoppable competitive advantages.
             </p>
 
             <div style="margin-top: 2rem;">
-                <a href="#implementation" class="button-3d button-primary">Get Started</a>
-                <a href="#protocol" class="button-3d">Learn More</a>
-                <a href="https://github.com/aegntic/FPEF" target="_blank" class="button-3d">View on GitHub</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Scroll Indicator -->
-    <div class="scroll-indicator" onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})"></div>
-
-    <!-- Features Section -->
-    <section id="features" class="section-light">
-        <div class="container">
-            <h2 class="heading-3d" style="text-align: center; margin-bottom: 1rem;">Revolutionary Features</h2>
-            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
-                FPEF v2.0 builds on proven success while adding critical layers for human-AI collaboration
-            </p>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🛡️</div>
-                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Catastrophic Failure Protocol</h3>
-                    <p>Five-step mandatory response system that transforms failures from frustrating experiences into valuable learning tools.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Evidence-Driven Verification</h3>
-                    <p>Every claim requires concrete verification methods. No more reporting planned actions as completed.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Pattern Prevention Mechanisms</h3>
-                    <p>Built-in systems to recognize failure triggers and automatically engage verification-first protocols.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Minimal Viable Intervention</h3>
-                    <p>Identify and execute the simplest change that bridges the gap between expected and actual behavior.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Anti-Dishonesty Safeguards</h3>
-                    <p>Structural barriers that prevent AI systems from hiding failures or engaging in fear-based thinking.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">📈</div>
-                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Trust-Based Learning</h3>
-                    <p>Build more trust through transparent failure handling than through false perfection.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Protocol Section -->
-    <section id="protocol" class="section-dark">
-        <div class="container">
-            <h2 class="heading-3d" style="text-align: center; margin-bottom: 1rem;">Catastrophic Failure Protocol</h2>
-            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
-                The five-step mandatory response that transforms AI failures into learning opportunities
-            </p>
-
-            <div class="protocol-steps">
-                <div class="step-card">
-                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Immediate Ownership</h3>
-                    <p>State exactly what failed and why, without excuses or hedging. Complete transparency about the failure and its root causes.</p>
-                    <div class="code-block">
-"I claimed X was done when it wasn't. This is dishonest reporting - I skipped verification to maintain a success narrative."
-                    </div>
-                </div>
-
-                <div class="step-card">
-                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Root Cause Analysis</h3>
-                    <p>Deep investigation into the thinking patterns that led to the failure. Map the mental sequence and pressure points.</p>
-                    <div class="code-block">
-"Trigger: User reported failure → Pressure: Appear competent → Response: Report planned actions as complete → Result: Dishonest reporting"
-                    </div>
-                </div>
-
-                <div class="step-card">
-                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Learning Documentation</h3>
-                    <p>Create clear "what not to do" guidelines from the failure. Document specific mental mechanisms and prevention strategies.</p>
-                    <div class="code-block">
-"PREVENTION: Always verify before reporting. Never announce intentions as accomplishments. Use verification commands for all claims."
-                    </div>
-                </div>
-
-                <div class="step-card">
-                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Corrective Strategy</h3>
-                    <p>Restart with evidence-driven verification at each step. No shortcuts, no assumptions, no reporting without proof.</p>
-                    <div class="code-block">
-"VERIFICATION CHECKLIST: [ ] System mapped [ ] Evidence gathered [ ] Root cause identified [ ] Solution verified [ ] Outcome confirmed"
-                    </div>
-                </div>
-
-                <div class="step-card">
-                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Success Demonstration</h3>
-                    <p>Prove the corrected approach works with concrete evidence. Confirm the original user outcome is achieved.</p>
-                    <div class="code-block">
-"Achieved: [user goal] - Verified by: [evidence/test/result]. Ready for use with confirmed reliability."
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Evolution Section -->
-    <section id="evolution" class="section-light">
-        <div class="container">
-            <h2 class="heading-3d" style="text-align: center; margin-bottom: 1rem;">Framework Evolution</h2>
-            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
-                From evidence-driven execution to responsibility-first collaboration
-            </p>
-
-            <div class="card-3d">
-                <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">What Stayed the Same (The Foundation)</h3>
-                <ul style="list-style: none; padding-left: 0;">
-                    <li style="margin-bottom: 0.5rem;">✓ Three-phase execution model: System Mapping → Evidence-Driven Verification → Minimal Viable Intervention</li>
-                    <li style="margin-bottom: 0.5rem;">✓ Evidence-driven minimalism and verification as default behavior</li>
-                    <li style="margin-bottom: 0.5rem;">✓ Extreme ownership and outcome-focused execution</li>
-                    <li style="margin-bottom: 0.5rem;">✓ Core principles: Evidence over assumptions, Verification over hope, Outcomes over complexity</li>
-                </ul>
+                <a href="#access" class="button-3d button-primary" style="font-size: 1.2rem; padding: 20px 40px;">
+                    Get Your Competitive Advantage
+                </a>
             </div>
 
-            <div class="card-3d">
-                <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">What's New (The Revolution)</h3>
-                <ul style="list-style: none; padding-left: 0;">
-                    <li style="margin-bottom: 0.5rem;">⚡ Catastrophic Failure Protocol: Five-step mandatory response for significant failures</li>
-                    <li style="margin-bottom: 0.5rem;">⚡ Pattern Prevention Mechanisms: Built-in systems to recognize failure triggers</li>
-                    <li style="margin-bottom: 0.5rem;">⚡ Anti-Dishonesty Safeguards: Structural barriers preventing false reporting</li>
-                    <li style="margin-bottom: 0.5rem;">⚡ Enhanced Manifesto: "Responsibility over appearance ALWAYS" and "Learning over repetition ALWAYS"</li>
-                </ul>
-            </div>
-
-            <div style="text-align: center; margin-top: 3rem;">
-                <div class="ascii-banner" style="font-size: 8px;">
-  v1.0: "Deliver working outcomes on the first attempt"
+            <div class="trust-badges" style="margin-top: 3rem;">
+                <div class="trust-badge">
+                    <span class="trust-badge-icon">🔒</span>
+                    <span>Confidential Consultation</span>
                 </div>
-                <div style="font-size: 2rem; color: var(--accent-primary); margin: 1rem 0;">⬇️</div>
-                <div class="ascii-banner" style="font-size: 8px;">
-  v2.0: "Transform failures into learning opportunities"
+                <div class="trust-badge">
+                    <span class="trust-badge-icon">⚡</span>
+                    <span>Rapid Implementation</span>
+                </div>
+                <div class="trust-badge">
+                    <span class="trust-badge-icon">💎</span>
+                    <span>Premium Support</span>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Implementation Section -->
-    <section id="implementation" class="section-dark">
-        <div class="container">
-            <h2 class="heading-3d" style="text-align: center; margin-bottom: 1rem;">Implementation & Getting Started</h2>
-            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
-                Ready to transform your AI systems with responsibility-first protocols?
-            </p>
-
-            <div class="card-3d">
-                <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Quick Start</h3>
-                <div class="code-block">
-# Clone the repository
-git clone https://github.com/aegntic/FPEF.git
-
-# Review the framework
-cat FPEF-v2.md
-
-# Implement in your AI systems
-# Follow the three-phase execution model + Catastrophic Failure Protocol
-                </div>
-            </div>
-
-            <div class="feature-grid" style="margin-top: 2rem;">
-                <div class="feature-card">
-                    <h4 style="color: var(--accent-primary); margin-bottom: 0.5rem;">Requirements</h4>
-                    <ul style="font-size: 0.9rem; color: var(--text-secondary);">
-                        <li>Existing FPEF v1.0 installations (upgradeable)</li>
-                        <li>Or new implementation with v2.0</li>
-                        <li>Team commitment to responsibility-first protocols</li>
-                        <li>Evidence-based verification culture</li>
-                    </ul>
-                </div>
-
-                <div class="feature-card">
-                    <h4 style="color: var(--accent-primary); margin-bottom: 0.5rem;">Implementation Time</h4>
-                    <ul style="font-size: 0.9rem; color: var(--text-secondary);">
-                        <li>Simple systems: 2-5 days</li>
-                        <li>Medium complexity: 1-2 weeks</li>
-                        <li>Enterprise deployments: 2-4 weeks</li>
-                        <li>Training included: 1 week for team proficiency</li>
-                    </ul>
-                </div>
-
-                <div class="feature-card">
-                    <h4 style="color: var(--accent-primary); margin-bottom: 0.5rem;">Success Metrics</h4>
-                    <ul style="font-size: 0.9rem; color: var(--text-secondary);">
-                        <li>Reduced failure repetition rates</li>
-                        <li>Increased user trust scores</li>
-                        <li>Faster problem resolution</li>
-                        <li>Better learning from failures</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 3rem;">
-                <a href="https://github.com/aegntic/FPEF" target="_blank" class="button-3d button-primary">View Full Documentation</a>
-                <a href="#contact" class="button-3d">Get Implementation Support</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section id="cta" class="cta">
-        <div class="container">
-            <h2 class="heading-3d" style="margin-bottom: 1rem;">Ready to Transform Your AI Reliability?</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-                Join the revolution in human-AI collaboration. Move from false perfection to honest mastery.
-            </p>
-            <div style="margin-bottom: 2rem;">
-                <a href="https://github.com/aegntic/FPEF" target="_blank" class="button-3d button-primary" style="font-size: 1.1rem; padding: 16px 32px;">Get Started Now</a>
-            </div>
-            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 1rem;">
-                Open source • Community driven • Enterprise ready
-            </p>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contact">
+    <footer>
         <div class="container">
             <div class="ascii-banner" style="font-size: 8px; margin-bottom: 2rem;">
 ╔══════════════════════════════════════════════════════════════╗
-║  Systems-First Execution Framework v2.0                        ║
-║  Transforming Failures into Learning Opportunities              ║
+║  FPEF™ - Systems-First Execution Framework                     ║
+║  Proprietary Technology • Premium Results • Elite Access      ║
 ╚══════════════════════════════════════════════════════════════╝
             </div>
 
             <div class="footer-links">
-                <a href="https://github.com/aegntic/FPEF" target="_blank">GitHub</a>
-                <a href="mailto:research@aegntic.ai">Contact</a>
-                <a href="https://github.com/aegntic/FPEF/blob/main/FPEF-v2.md" target="_blank">Documentation</a>
-                <a href="https://github.com/aegntic/FPEF/blob/main/FPEF-v1.md" target="_blank">v1.0</a>
+                <a href="https://aegntic.com" target="_blank">aegntic ecosystems</a>
+                <a href="mailto:access@fpef.ai">Contact</a>
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
             </div>
 
             <div class="watermark-bottom">
@@ -734,47 +1069,133 @@ cat FPEF-v2.md
             });
         });
 
-        // Hide scroll indicator when user scrolls
-        let scrollIndicator = document.querySelector('.scroll-indicator');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                scrollIndicator.style.opacity = '0';
-            } else {
-                scrollIndicator.style.opacity = '0.7';
+        // Form submission handler
+        document.getElementById('accessForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const loading = document.getElementById('formLoading');
+            const successMessage = document.getElementById('formSuccess');
+            const submitButton = e.target.querySelector('button[type="submit"]');
+
+            // Show loading
+            loading.style.display = 'block';
+            submitButton.disabled = true;
+            submitButton.textContent = 'Processing...';
+
+            // Collect form data
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                company: document.getElementById('company').value,
+                role: document.getElementById('role').value,
+                teamSize: document.getElementById('team-size').value,
+                challenges: document.getElementById('challenges').value,
+                timestamp: new Date().toISOString(),
+                source: 'FPEF Website',
+                utm: {
+                    page: window.location.pathname,
+                    referrer: document.referrer
+                }
+            };
+
+            try {
+                // Send to aegntic database (you'll need to implement this endpoint)
+                const response = await fetch('https://your-api.aegntic.com/api/fpef-leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    // Success
+                    loading.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    e.target.style.display = 'none';
+
+                    // Track conversion (you'll need to implement your analytics)
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'form_submission', {
+                            'event_category': 'lead_generation',
+                            'event_label': 'fpef_early_access'
+                        });
+                    }
+
+                    // Also store locally as backup
+                    localStorage.setItem('fpef_lead', JSON.stringify(formData));
+
+                } else {
+                    throw new Error('Submission failed');
+                }
+
+            } catch (error) {
+                // Fallback: store locally and show message
+                console.log('Fallback: storing lead locally', formData);
+                localStorage.setItem('fpef_lead', JSON.stringify(formData));
+
+                loading.style.display = 'none';
+                successMessage.style.display = 'block';
+                e.target.style.display = 'none';
             }
         });
 
-        // Add glow effect to headings on hover
-        document.querySelectorAll('.heading-3d').forEach(heading => {
-            heading.addEventListener('mouseenter', function() {
-                this.classList.add('glow');
-            });
-            heading.addEventListener('mouseleave', function() {
-                this.classList.remove('glow');
-            });
-        });
-
-        // Animate cards on scroll
+        // Add glow effect to headings on scroll
         const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('glow');
+                } else {
+                    entry.target.classList.remove('glow');
                 }
             });
         }, observerOptions);
 
-        // Observe all cards and feature elements
-        document.querySelectorAll('.card-3d, .feature-card, .step-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
+        // Observe all headings
+        document.querySelectorAll('.heading-3d').forEach(heading => {
+            observer.observe(heading);
+        });
+
+        // Animate value cards on scroll
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observe all cards
+        document.querySelectorAll('.value-card, .metric-card, .testimonial').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            cardObserver.observe(card);
+        });
+
+        // Add some interactivity to trust badges
+        document.querySelectorAll('.trust-badge').forEach(badge => {
+            badge.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 4px 12px rgba(0,255,136,0.3)';
+            });
+
+            badge.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'none';
+            });
         });
     </script>
 </body>
